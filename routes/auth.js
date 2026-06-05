@@ -9,7 +9,7 @@ router.post("/register", async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password)
-      return res.status(400).json({ message: "Username and password are required" });
+      return res.status(400).json({ message: "Username and password are required for Register" });
 
     const existing = await User.findOne({ username });
     if (existing) return res.status(400).json({ message: "User already exists" });
@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password)
-      return res.status(400).json({ message: "Username and password are required" });
+      return res.status(400).json({ message: "Username and password are required for Login" });
 
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ message: "Invalid username or password" });
