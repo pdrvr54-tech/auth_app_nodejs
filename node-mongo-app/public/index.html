@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Demo</title>
+</head>
+<body>
+  <h2>Register</h2>
+  <input id="regUser" placeholder="Username" required>
+  <input id="regPass" placeholder="Password" type="password" required>
+  <button onclick="register()">Register</button>
+
+  <h2>Login</h2>
+  <input id="logUser" placeholder="Username" required>
+  <input id="logPass" placeholder="Password" type="password" required>
+  <button onclick="login()">Login</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function register() {
+      const res = await fetch("/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("regUser").value,
+          password: document.getElementById("regPass").value
+        })
+      });
+      const data = await res.json();
+      document.getElementById("result").innerText = data.message;
+    }
+
+    async function login() {
+      const res = await fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("logUser").value,
+          password: document.getElementById("logPass").value
+        })
+      });
+      const data = await res.json();
+      document.getElementById("result").innerText = data.message;
+
+      if (data.message === "Login successful") {
+        // example redirect
+        window.location.href = "https://www.google.pt";
+      }
+    }
+  </script>
+</body>
+</html>
